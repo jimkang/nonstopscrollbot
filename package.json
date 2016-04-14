@@ -1,0 +1,31 @@
+{
+  "name": "nonstopscrollbot",
+  "version": "1.0.0",
+  "description": "Tweet deal$!",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jimkang/nonstopscrollbot.git"
+  },
+  "keywords": [],
+  "author": "Jim Kang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jimkang/nonstopscrollbot/issues"
+  },
+  "homepage": "https://github.com/jimkang/nonstopscrollbot",
+  "devDependencies": {
+    "tape": "^3.0.3"
+  },
+  "dependencies": {
+    "async": "^1.5.2",
+    "call-next-tick": "^1.1.2",
+    "makemerch": "^1.0.1",
+    "request": "^2.71.0",
+    "titlecase": "^1.1.2",
+    "twit": "^1.1.20"
+  }
+}
