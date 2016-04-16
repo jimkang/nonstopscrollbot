@@ -8,7 +8,7 @@ Installation
 
 Clone this repo.
 
-Then, create a `config/config.js` file in the project root that contains [Twitter API keys](https://gist.github.com/jimkang/34d16247b40097d8cace) and [Wordnik API key](http://developer.wordnik.com/). Example:
+Then, create a `config.js` file in the project root that contains [Twitter API keys](https://gist.github.com/jimkang/34d16247b40097d8cace) and [Wordnik API key](http://developer.wordnik.com/). Example:
 
     module.exports = {
       twitter: {
@@ -20,32 +20,17 @@ Then, create a `config/config.js` file in the project root that contains [Twitte
       wordnikAPIKey: 'mkomniojnnuibiybvuytvutrctrxezewarewetxyfcftvuhbg'
     };
 
-Or with Docker:
-
-    - Create a `config` directory containing the `config.js` file as above.
-
 Usage
 -----
 
-    make run
-
-
-With Docker:
-
-    docker run -v $(HOMEDIR)/config:/usr/src/app/config \
-        jkang/nonstopscrollbot make run
-
-Tests
------
-
-Run tests with `make test`.
+    node post-deal.js
 
 License
 -------
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Jim Kang
+Copyright (c) 2016 Jim Kang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
