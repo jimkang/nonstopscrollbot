@@ -5,9 +5,6 @@ var siteDomain = 'nonstopscrollshop.com';
 function formatDeal(item) {
   var formatted = 'Gr8 deal on @nonstopscrshop! ';
   formatted += getDescription(item) + '\n' + cost(item) + '\n' + getLink(item) + '\n\n';
-  if (item.imageURL) {
-    formatted += item.imageURL
-  }
   return formatted;
 }
 

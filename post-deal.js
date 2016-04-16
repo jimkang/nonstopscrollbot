@@ -72,18 +72,79 @@ function storeItem(items, done) {
   }
 }
 
-function postTweet(item, done) {
-  var text = formatDeal(item, warehouseURL);
+function postTweet(item, postTweetDone) {
+  async.waterfall(
+    [
+      getImageURL,
+      getImage,
+      postMedia,
+      postTweet
+    ],
+    postTweetDone
+  );
 
-  if (dryRun) {
-    console.log('Would have tweeted:', text);
-    callNextTick(done);
+  function getImageURL(done) {
+    var imageURL;
+    if (item.largeImageURL) {
+      imageURL = item.largeImageURL;
+    }
+    else  if (item.imageURL) {
+      imageURL = imageURL;
+    }
+    var error = null;
+
+    if (!imageURL) {
+      error = new Error('Item does not have an image.');
+    }
+    callNextTick(done, error, imageURL);
   }
-  else {
-    var body = {
-      status: text
+
+  function postMedia(imageResponse, done) {
+    var mediaPostOpts = {
+      media_data: new Buffer(imageResponse.body).toString('base64')
     };
-    twit.post('statuses/update', body, done);
+    twit.post('media/upload', mediaPostOpts, done);
+  }
+
+  function postTweet(mediaPostData, response, done) {
+    var text = formatDeal(item, warehouseURL);
+
+    if (dryRun) {
+      console.log('Would have tweeted:', text);
+      callNextTick(done);
+    }
+    else {
+      var body = {
+        status: text,
+        media_ids: [
+          mediaPostData.media_id_string
+        ]
+      };
+      twit.post('statuses/update', body, done);
+    }
+  }
+}
+
+function getImage(url, done) {
+  var requestOpts = {
+    url: url,
+    encoding: null
+  };
+  request(requestOpts, checkResponse);
+
+  function checkResponse(error, response) {
+    if (error) {
+      done(error);
+    }
+    else if (response.statusCode !== 200) {
+      done(new Error('Could not get image. Status code: ' + response.statusCode));
+    }
+    else if (response.headers['content-type'].indexOf('image/') !== 0) {
+      done(new Error('Did not receive image as response.'));
+    }
+    else {
+      done(null, response);
+    }
   }
 }
 
