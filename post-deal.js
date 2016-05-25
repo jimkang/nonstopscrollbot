@@ -8,7 +8,7 @@ var async = require('async');
 var request = require('request');
 var formatDeal = require('./format-deal');
 
-var warehouseURL = 'http://45.55.32.243:3001';
+var warehouseURL = 'http://162.243.21.88:3001';
 
 var dryRun = false;
 if (process.argv.length > 2) {
